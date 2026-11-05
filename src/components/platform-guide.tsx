@@ -85,9 +85,16 @@ const STEPS: Record<
       title: "Add the script",
       body: (
         <>
-          Use <strong className="font-medium text-white/70">Copy script</strong> above, open
-          Userscripts, tap <em>+</em>, paste, name it Reelbrake, and save. Then open the script in
-          the app and make sure it is enabled for those sites.
+          <a
+            href="/reelbrake.user.js"
+            className="font-medium text-mint/85 underline decoration-mint/25 underline-offset-2 transition hover:text-mint"
+          >
+            Open the Reelbrake script in Safari
+          </a>
+          . Once it loads, open Safari&apos;s Extensions menu and tap Userscripts to see the install
+          prompt. The URL path ends in <span className="font-mono text-[11px]">.user.js</span>, so
+          Userscripts can recognize it. For customized settings, use <strong>Copy script</strong>{" "}
+          above and add it manually in Userscripts.
         </>
       ),
     },
