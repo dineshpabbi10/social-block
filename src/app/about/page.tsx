@@ -98,12 +98,12 @@ export default function AboutPage() {
             {
               icon: SlidersIcon,
               title: "CSS for surfaces",
-              body: "The script hides the Reels and Shorts tabs, shelves and feed cards with targeted selectors. It never rewrites the rest of the page.",
+              body: "The script hides Reels and Shorts discovery surfaces. Instagram and Facebook suggested Reel cards are hidden while cards from accounts you follow stay visible.",
             },
             {
               icon: ShieldCheckIcon,
               title: "A guard for links",
-              body: "Short-form paths are checked on load and on navigation. If one appears, you are sent to the site home instead.",
+              body: "Discovery-feed paths are checked on load and navigation. Instagram and Facebook profile and individual Reel links remain accessible.",
             },
           ].map((item) => (
             <Card key={item.title} className="p-4">

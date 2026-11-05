@@ -136,11 +136,11 @@ export default function SettingsPage() {
             },
             {
               q: "I still see a Reels or Shorts link somewhere",
-              a: "The guard hides the main surfaces and redirects direct short-form URLs. A site can always add a new entry point. Send yourself the link, and it will bounce home as long as redirects are on.",
+              a: "The guard hides the main discovery surfaces and redirects Explore Reels and Shorts URLs. Instagram and Facebook profile and individual Reel links remain accessible, so you can watch Reels from accounts you follow.",
             },
             {
               q: "I want the feed completely clean",
-              a: "Turn on Hide Reels and Shorts shelves. That removes short-form rows from the home feed and search results. The rest of the feed stays, because Reelbrake is not a general content filter.",
+              a: "Turn on Hide Reels and Shorts shelves. That hides suggested short-form rows from feeds and search results. Instagram and Facebook Reel cards with a Follow action are hidden; cards from accounts you follow stay visible.",
             },
             {
               q: "How do I remove it?",

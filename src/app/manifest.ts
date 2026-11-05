@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Reelbrake — no Reels, no Shorts",
     short_name: "Reelbrake",
     description:
-      "Build a guard that removes the Reels tab from Instagram, Shorts from YouTube and Reels from Facebook. Keep DMs, stories, subscriptions and everything else. Local-only.",
+      "Hide Instagram and Facebook Reels discovery while keeping Reels from people you follow. Also hide Shorts on YouTube. Local-only.",
     id: "/",
     start_url: "/",
     scope: "/",

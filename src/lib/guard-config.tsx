@@ -36,7 +36,7 @@ export const GUARD_SITES: Array<{
     key: "instagram",
     name: "Instagram",
     shortForm: "Reels",
-    summary: "Reels tab, profile Reels, feed and Explore Reels.",
+    summary: "Explore Reels and suggested feed cards. Followed accounts' Reels stay visible.",
   },
   {
     key: "youtube",
@@ -48,7 +48,7 @@ export const GUARD_SITES: Array<{
     key: "facebook",
     name: "Facebook",
     shortForm: "Reels",
-    summary: "Reels tab, feed cards and Reels links.",
+    summary: "Reels discovery and suggested feed cards. Followed accounts' Reels stay visible.",
   },
   {
     key: "tiktok",

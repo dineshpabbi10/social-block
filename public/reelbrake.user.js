@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Reelbrake — hide Reels & Shorts
 // @namespace    https://reelbrake.local/
-// @version      1.0.0
-// @description  Hides Reels on Instagram, Shorts on YouTube, and Reels on Facebook. Keeps DMs, stories, posts, subscriptions, and everything else.
+// @version      1.0.1
+// @description  Hides Instagram Reels discovery while keeping followed-account Reels, plus YouTube Shorts and Facebook Reels.
 // @author       Reelbrake
 // @match        https://www.instagram.com/*
 // @match        https://instagram.com/*
@@ -140,9 +140,8 @@
     var path = location.pathname.toLowerCase().replace(/\/+$/, "") + "/";
 
     if (IS_INSTAGRAM) {
-      if (/^\/(reel|reels)\//.test(path)) return true;
+      if (/^\/reels\/$/.test(path)) return true;
       if (/^\/explore\/reels?\//.test(path)) return true;
-      if (/^\/[a-z0-9._]+\/reels?\//.test(path)) return true;
       return false;
     }
 
@@ -152,7 +151,7 @@
     }
 
     if (IS_FACEBOOK) {
-      if (/^\/reels?\//.test(path)) return true;
+      if (/^\/reels\/$/.test(path)) return true;
       if (/^\/share\/r\//.test(path)) return true;
       return false;
     }
@@ -190,14 +189,14 @@
     if (sessionGet("reelbrake:redirect-notice") === "1") {
       sessionRemove("reelbrake:redirect-notice");
       setTimeout(function () {
-        showNotice("Reels are off. That is the guard.");
+        showNotice("Explore Reels are off. That is the guard.");
       }, 500);
       return;
     }
     if (sessionGet("reelbrake:on-notice") === "1") return;
     sessionSet("reelbrake:on-notice", "1");
     setTimeout(function () {
-      showNotice("Reelbrake is on. Reels hidden.");
+      showNotice("Reelbrake is on. Suggested Reels hidden.");
     }, 1200);
   }
 
@@ -209,21 +208,11 @@
 
   if (IS_INSTAGRAM) {
     css +=
-      'a[href="/reels/"],a[href="/reels"],' +
+      'nav a[href="/reels/"],nav a[href="/reels"],' +
+      '[role="navigation"] a[href="/reels/"],[role="navigation"] a[href="/reels"],' +
       'a[href="/explore/reels/"],a[href="/explore/reels"],' +
-      'a[href$="/reels/"],' +
-      '[role="navigation"] [aria-label="Reels"],' +
-      'header [aria-label="Reels"]' +
+      '[role="navigation"] [aria-label="Reels"]' +
       "{display:none !important;}";
-
-    if (CONFIG.hideShelves) {
-      css +=
-        'a[href^="/reel/"],a[href^="/reels/"],' +
-        "article:has(a[href^='/reel/'])," +
-        "article:has(a[href^='/reels/'])," +
-        "div[role='article']:has(a[href^='/reel/'])" +
-        "{display:none !important;}";
-    }
   }
 
   if (IS_YOUTUBE) {
@@ -257,31 +246,29 @@
       "[role='navigation'] a[href*='/reels/']," +
       "[role='banner'] a[href*='/reel/']," +
       "[role='banner'] a[href*='/reels/']," +
-      "[role='tablist'] a[href*='/reel/']," +
-      "[role='tablist'] a[href*='/reels/']," +
       "[role='navigation'] [aria-label='Reels']," +
       "[role='banner'] [aria-label='Reels']" +
       "{display:none !important;}";
-
-    if (CONFIG.hideShelves) {
-      css +=
-        "div[role='article']:has(a[href*='/reel/'])," +
-        "div[role='article']:has(a[href*='/reels/'])" +
-        "{display:none !important;}";
-    }
   }
 
   /* ------------------------------------------------------------------ */
   /* DOM cleanup                                                         */
   /* ------------------------------------------------------------------ */
 
+  function hasFollowAction(card) {
+    return Array.from(card.querySelectorAll("button, [role='button']")).some(function (button) {
+      var label = button.getAttribute("aria-label") || button.getAttribute("title") || "";
+      return /^follow(?:\s|$)/i.test(label.trim()) || /^follow$/i.test(textOf(button));
+    });
+  }
+
   function cleanInstagram() {
     var labels = ["Reels", "Reel"];
-    document.querySelectorAll('a[href="/reels/"], a[href="/reels"], a[href="/explore/reels/"], a[href$="/reels/"]').forEach(function (link) {
+    document.querySelectorAll('a[href="/reels/"], a[href="/reels"], a[href="/explore/reels/"], a[href="/explore/reels"]').forEach(function (link) {
       hideNavItem(link, labels);
     });
 
-    document.querySelectorAll('[role="navigation"] a, [role="navigation"] button, nav a, nav button, [role="tablist"] [role="tab"]').forEach(function (element) {
+    document.querySelectorAll('[role="navigation"] a, [role="navigation"] button, nav a, nav button').forEach(function (element) {
       var label = element.getAttribute("aria-label") || "";
       if (label === "Reels" || textOf(element) === "Reels") {
         hideNavItem(element, labels);
@@ -289,7 +276,14 @@
     });
 
     document.querySelectorAll('a[href^="/reel/"], a[href^="/reels/"]').forEach(function (link) {
-      if (link.closest("nav, [role='navigation'], [role='tablist']")) hideNavItem(link, labels);
+      if (link.closest("nav, [role='navigation']")) hideNavItem(link, labels);
+    });
+
+    if (!CONFIG.hideShelves) return;
+
+    document.querySelectorAll("article, div[role='article']").forEach(function (card) {
+      var reelLink = card.querySelector("a[href^='/reel/'], a[href^='/reels/']");
+      if (reelLink && hasFollowAction(card)) hide(card);
     });
   }
 
@@ -315,7 +309,7 @@
   function cleanFacebook() {
     var labels = ["Reels", "Reel"];
     document
-      .querySelectorAll('[role="navigation"] a, [role="navigation"] button, [role="tablist"] a, [role="tablist"] button, header a, header button')
+      .querySelectorAll('[role="navigation"] a, [role="navigation"] button, [role="banner"] a, [role="banner"] button, nav a, nav button')
       .forEach(function (element) {
         var label = element.getAttribute("aria-label") || "";
         if (label === "Reels" || textOf(element) === "Reels") {
@@ -324,7 +318,14 @@
       });
 
     document.querySelectorAll('a[href*="/reel/"], a[href*="/reels/"]').forEach(function (link) {
-      if (link.closest('[role="navigation"], [role="tablist"], header')) hideNavItem(link, labels);
+      if (link.closest('[role="navigation"], [role="banner"], nav')) hideNavItem(link, labels);
+    });
+
+    if (!CONFIG.hideShelves) return;
+
+    document.querySelectorAll("div[role='article']").forEach(function (card) {
+      var reelLink = card.querySelector("a[href*='/reel/'], a[href*='/reels/']");
+      if (reelLink && hasFollowAction(card)) hide(card);
     });
   }
 

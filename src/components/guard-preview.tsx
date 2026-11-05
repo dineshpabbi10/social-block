@@ -198,7 +198,7 @@ function InstagramMock({ guardOn }: { guardOn: boolean }) {
       {guardOn ? (
         <div className="mx-3 mt-2.5 rounded-xl border border-mint/10 bg-mint/[0.025] px-2.5 py-2">
           <p className="text-[6.5px] leading-relaxed text-mint/45">
-            Reels tab and suggested reels are removed from this screen.
+            Explore and suggested Reels are hidden. Reels from people you follow stay.
           </p>
         </div>
       ) : (
@@ -395,7 +395,7 @@ function FacebookMock({ guardOn }: { guardOn: boolean }) {
         {guardOn ? (
           <div className="rounded-xl border border-mint/10 bg-mint/[0.025] px-2.5 py-2">
             <p className="text-[6.5px] leading-relaxed text-mint/45">
-              Reels tab and Reels feed cards are removed. Friends and groups stay.
+              Reels discovery is hidden. Followed creators, friends and groups stay.
             </p>
           </div>
         ) : (

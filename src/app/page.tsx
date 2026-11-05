@@ -22,7 +22,7 @@ import {
 export const metadata: Metadata = {
   title: "Reelbrake — open Instagram without the Reels tab",
   description:
-    "Remove Reels from Instagram, Shorts from YouTube and Reels from Facebook. Keep DMs, stories, subscriptions and the rest. A local-only PWA that builds the userscript doing the blocking.",
+    "Hide Instagram and Facebook Reels discovery while keeping Reels from people you follow. Also hide Shorts on YouTube. A local-only PWA.",
 };
 
 const HIDES = [
@@ -31,9 +31,7 @@ const HIDES = [
     name: "Instagram",
     items: [
       "Reels tab in the navigation",
-      "Reels on profiles and Explore",
-      "Suggested Reels in the feed",
-      "/reel/ links in the address bar",
+      "Explore Reels and suggested Reels from accounts you don't follow",
     ],
   },
   {
@@ -51,9 +49,7 @@ const HIDES = [
     name: "Facebook",
     items: [
       "Reels tab in the top bar",
-      "Reels cards in the feed",
-      "Reels links in the address bar",
-      "Reels entries in navigation",
+      "Suggested Reels from accounts you don't follow",
     ],
   },
 ];
@@ -61,7 +57,7 @@ const HIDES = [
 const KEEPS = [
   {
     name: "Instagram",
-    items: ["DMs", "Stories", "Feed", "Search", "Profiles", "Comments"],
+    items: ["Reels from people you follow", "DMs", "Stories", "Feed", "Search", "Profiles"],
   },
   {
     name: "YouTube",
@@ -69,7 +65,7 @@ const KEEPS = [
   },
   {
     name: "Facebook",
-    items: ["Friends", "Groups", "Feed", "Messenger", "Marketplace", "Notifications"],
+    items: ["Reels from people you follow", "Friends", "Groups", "Feed", "Messenger", "Marketplace"],
   },
 ];
 
@@ -92,9 +88,9 @@ export default function HomePage() {
           </h1>
 
           <p className="mt-4 max-w-md text-[14px] leading-relaxed text-white/48 sm:text-[15px]">
-            Reelbrake removes Reels from Instagram, Shorts from YouTube and Reels from Facebook —
-            then gives you back the parts you actually opened: DMs, stories, subscriptions and the
-            people you follow.
+            Reelbrake hides Instagram&apos;s Reels discovery while keeping Reels from people you
+            follow. It does the same for Facebook Reels, and hides Shorts from YouTube, leaving DMs,
+            stories, subscriptions and the rest.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-2.5">

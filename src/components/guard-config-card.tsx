@@ -29,12 +29,14 @@ const OPTIONS: Array<{
   {
     key: "redirects",
     label: "Redirect short-form links",
-    description: "A /reel/ or /shorts/ link sends you back to the site's home.",
+    description:
+      "Explore Reels and Shorts links redirect home. Instagram and Facebook profile and individual Reel links stay accessible.",
   },
   {
     key: "hideShelves",
     label: "Hide Reels and Shorts shelves",
-    description: "Removes short-form rows from the home feed and search results.",
+    description:
+      "Hides suggested short-form rows in feeds and search. Instagram and Facebook Reels from accounts you follow stay visible.",
   },
   {
     key: "showNotice",

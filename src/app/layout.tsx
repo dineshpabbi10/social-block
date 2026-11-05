@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s · Reelbrake",
   },
   description:
-    "Reelbrake removes the Reels tab from Instagram, Shorts from YouTube, and Reels from Facebook — while keeping DMs, stories, posts, subscriptions and everything else. A local-only PWA that builds the userscript doing the blocking.",
+    "Reelbrake hides Instagram and Facebook Reels discovery while keeping Reels from people you follow, plus hides Shorts on YouTube. A local-only PWA that builds the userscript.",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Reelbrake — open Instagram without the Reels tab",
     description:
-      "Remove Reels from Instagram, Shorts from YouTube and Reels from Facebook. Keep the feeds you actually wanted. Local-only, no account, no timer.",
+      "Hide Instagram and Facebook Reels discovery while keeping Reels from people you follow. Also hide Shorts on YouTube. Local-only, no account, no timer.",
     type: "website",
     siteName: "Reelbrake",
   },
